@@ -14,7 +14,7 @@
       <div class="wx-date-day" v-for="(item, index) in dailyWork" :key="index">
         <div
           :class="{current: dailyWork[index]['_current']}"
-          @click="_showContent(index)"
+          @click.prevent="_showContent(index)"
         >
           {{item._day}}
         </div>
@@ -255,8 +255,8 @@
 				for (let i = 0; i < this.eventData.length; i++) {
 					for (let j = 0; j < list.length; j++) {
 						if (this.eventData[i]['timeStamp'] == list[j]['timeStamp']) {
-							this.$set(list[j], 'event', this.eventData[i]['timeStamp']);
-							// list[j]['event'] = this.eventData[j]['timeStamp'];
+							this.$set(list[j], 'event', this.eventData[i]['event']);
+							// list[j]['event'] = this.eventData[j]['event'];
 							break;
 						}
 					}
@@ -394,6 +394,7 @@
   .calendar-content-close {
     width: 20px;
     height: 20px;
+		cursor: pointer;
     position: absolute;
     right: 20px;
     top: 10px;
