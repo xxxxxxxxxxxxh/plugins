@@ -67,6 +67,7 @@
     props: {
       walk: Boolean,
       clickEvent: Boolean,
+			eventData: Array
     },
     methods: {
       /**
@@ -103,7 +104,7 @@
         if (_compared) {
           dateList = this._operateStep(_compared, dateList)
         }
-				this._setEventKey;
+				this._setEventKey(dateList);
         // console.log(dateList)
         return dateList;
       },
@@ -164,8 +165,6 @@
         _year = _dateArr[0];
         let _dayNum = this._getDayNum(_month, _year);
         _dateStr = _dateArr.join('/');
-        // console.log(_dateStr);
-        // console.log(_dayNum)
         this.year = _year;
         this.month = this._replenish(_month);
         this.currentMonth = _dateStr;
@@ -244,11 +243,34 @@
 			/**
 			 * @ 增加 event 属性
 			 */
-			_setEventKey: function () {
+			_setEventKey: function (list) {
 				if (!this.clickEvent) {
 					return;
 				}
-				this.dailyWork['event'] = '';
+				console.log(this.eventData)
+				if (!this.eventData) {
+					return;
+				}
+				this._getTimeStamp();
+				for (let i = 0; i < this.eventData.length; i++) {
+					for (let j = 0; j < list.length; j++) {
+						if (this.eventData[i]['timeStamp'] == list[j]['timeStamp']) {
+							this.$set(list[j], 'event', this.eventData[i]['timeStamp']);
+							// list[j]['event'] = this.eventData[j]['timeStamp'];
+							break;
+						}
+					}
+				}
+			},
+			/**
+			 * @ 处理传入的时间字符串, 获取时间戳
+			 */
+			_getTimeStamp: function () {
+				let _date = '';
+				for (let i = 0; i < this.eventData.length; i++) {
+					_date = this.eventData[i]['date']
+					this.eventData[i]['timeStamp'] = new Date(_date).getTime();
+				}
 			},
 			/**
 			 * @ 增加事件内容, 传出事件所在对象 $emit(giveData)
