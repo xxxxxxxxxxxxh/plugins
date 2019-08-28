@@ -247,7 +247,7 @@
 				if (!this.clickEvent) {
 					return;
 				}
-				console.log(this.eventData)
+				// console.log(this.eventData)
 				if (!this.eventData) {
 					return;
 				}
@@ -294,10 +294,17 @@
       this.month = this._replenish(_month);
       this.currentMonth = _str;
       this.dailyWork = this._drawCalendar(_str, _dayNum);
-			console.log(this)
+			// console.log(this)
     },
     watch: {
-
+      "eventData": function (newer, older) {
+				let _date = new Date(),
+          _year = _date.getFullYear(),
+          _month = _date.getMonth() + 1;
+				let _str = `${_year}/${_month}/1`,
+						_dayNum = this._getDayNum(_month, _year);
+				this.dailyWork = this._drawCalendar(_str, _dayNum);
+      }
     }
   }
 </script>
@@ -364,7 +371,7 @@
     box-shadow: 0 0 3px 3px #dfdfdf;
   }
 	.calendar-content-event {
-		
+
 	}
 	.calendar-content-event button {
 	  background: #fff;
