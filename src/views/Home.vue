@@ -7,15 +7,22 @@
 			:eventData="eventData"
 			v-on:giveData="getData"
 		></calendar>
-		<p>
+		<!--<p>
 			picker： 	
 			defaultType ———— 滚动内容是否自定义（true 或者 false） 
 			default ———— 滚动区域初始值  
 			defaultList ———— 自定义内容 [{column: []}] 列表内容在column内 
-		</p>
+		</p>-->
 		<!--<datepicker :defaultType="type" :default="b" :defaultList="defaultList" ></datepicker>-->
-		<datepicker :defaultType="false" :default="a"></datepicker>
-    
+		<!--<datepicker :defaultType="false" :default="a"></datepicker>-->
+    <card :isShadow='true' :isHorizontal="false">
+			<h2>默认slot</h2>
+			<template v-slot:customize>
+				<div style="color: #f00;">
+					<p>slot插槽</p>
+				</div>
+			</template>
+		</card>
   </div>
 </template>
 
@@ -24,9 +31,10 @@
 
 import Calendar from "../components/calendar/calendar";
 import Datepicker from "../components/datepicker/datepicker";
+import Card from "../components/card/card";
 
 export default {
-  components: {Calendar, Datepicker},
+  components: {Calendar, Datepicker, Card},
   name: 'home',
 	data () {
 		return {
