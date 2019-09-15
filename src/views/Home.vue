@@ -30,9 +30,11 @@
 			style="margin-top: 15px; margin-left: 5vw;"
 			:isCurve="true" 
 			:placeholder="placeholder"
-			:value="test"
+			:closeBtn="false"
+			v-model="test"
+			@keyup.enter.native="s"
 			></input-text>
-		<div @click="m">
+		<div>
 			{{test}}
 		</div>
   </div>
@@ -67,8 +69,8 @@ export default {
 		getData: function (res) {
 			console.log(res)
 		},
-		m: function() {
-			alert(1)
+		s: function() {
+			alert(this.test)
 		}
     
 	},
@@ -79,9 +81,9 @@ export default {
 		this.messege = data
 	}**/
 	created () {
-		fetch('http://127.0.0.1:3030/exam').then(res => res.json()).then(data => {
+		/**fetch('http://127.0.0.1:3030/exam').then(res => res.json()).then(data => {
 			this.messege = data
-		})
+		})**/
 	}
 }
 </script>

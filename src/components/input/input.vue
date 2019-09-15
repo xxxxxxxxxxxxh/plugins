@@ -4,14 +4,16 @@
 			ref="input" 
 			type="text"
 			:placeholder="placeholder"
-			v-model="inputValue"
-			@keyup.13="submit"
+			:value="value"
+      @input="getInput($event)"
 		>
-		<div 
-			v-if="show"
-			class="close" 
-			@click="clear"
-		>×</div>
+		<div v-if="closeBtn">
+			<div 
+				v-if="show"
+				class="close" 
+				@click="clear"
+			>×</div>
+		</div>
 	</div>
 </template>
 
@@ -30,17 +32,11 @@
 		props: {
 			isCurve: Boolean,
 			placeholder: String,
-			value: String
+			value: String,
+			closeBtn: Boolean
 		},
 		computed: {
-			inputValue: {
-				get: function() {
-					return this.value;
-				},
-				set: function(value) {
-					this.$emit('input', value)
-				}
-			}
+			
 		},
 		methods: {
 			change: function(e) {
@@ -50,16 +46,21 @@
 					this.show = false;
 				}
 			},
-			submit: function() {
-				alert('submit')
+			getInput: function(e) {
+				this.$emit('input', e.target.value);
+				this.show = e.target.value.length ? true : false;
 			},
 			clear: function() {
-				this.value = '';
 				this.show = false;
+				this.$emit('input', '');
+        this.$emit('clear');
 			}
 		},
 		mounted () {
-			this.show = this.value.length ? true : false
+			this.show = this.value.length ? true : false;
+		},
+		watch: {
+		
 		}
 	}
 </script>
