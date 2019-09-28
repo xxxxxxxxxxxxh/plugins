@@ -37,6 +37,10 @@
 		<div>
 			{{test}}
 		</div>
+		<radio radioName="type" value="选框1" v-model="val" :selectVal="val"></radio>
+    <radio radioName="type" value="选框2" v-model="val" :selectVal="val"></radio>
+    <radio radioName="type" value="选框3" v-model="val" :selectVal="val"></radio>
+    <p>{{val}}</p>
   </div>
 </template>
 
@@ -47,9 +51,10 @@ import Calendar from "../components/calendar/calendar";
 import Datepicker from "../components/datepicker/datepicker";
 import Card from "../components/card/card";
 import InputText from "../components/input/input";
+import Radio from "../components/radio/radio";
 
 export default {
-  components: {Calendar, Datepicker, Card, InputText},
+  components: {Calendar, Datepicker, Card, InputText, Radio},
   name: 'home',
 	data () {
 		return {
@@ -63,6 +68,7 @@ export default {
 			b: '宁波',
 			placeholder: '请输入搜索内容',
 			defaultList: [{column: ['杭州', '宁波', '温州', '嘉兴', '湖州', '丽水']}],
+			val: 'default'
 		}
 	},
 	methods: {
