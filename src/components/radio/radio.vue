@@ -1,14 +1,15 @@
 <template>
-  <div class="radio" :class="[selectVal === value ? 'active' : 'unactive']">
+  <div class="radio" :class="[selectVal === value ? 'active' : '']">
     <input
       :name="radioName"
       class="transparent-radio"
       type="radio"
       :value="value"
 			:selectVal="selectVal"
+			:disabled="disabled"
       @change="changeState($event)"
     >
-    <div>{{value}}</div>
+    <div :class="{disabled: disabled}">{{value}}</div>
   </div>
 </template>
 
@@ -17,7 +18,7 @@
     name: "radio",
     data () {
       return {
-        select: ''
+        stateVal: false
       }
     },
     model: {
@@ -28,10 +29,10 @@
       value: String,
       radioName: String,
       selectVal: String,
+			disabled: Boolean
     },
     methods: {
       changeState: function (e) {
-        this.select = e.target.checked
         this.$emit('change', e.target.value)
       }
     },
@@ -47,7 +48,7 @@
     display: inline-block;
     padding: 3px 6px;
     background: #f0f0f0;
-    color: #cdcdcd;
+    color: #2c3e50;
     border-radius: 5px;
     position: relative;
     .transparent-radio {
@@ -67,4 +68,7 @@
     background: #f0f0f0;
     color: #cdcdcd;
   }
+	.disabled {
+		color: #cdcdcd;
+	}
 </style>
